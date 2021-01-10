@@ -9,6 +9,7 @@ import { Repositories, Form } from '../styles/pages/dashboard'
 function Dashboard() {
 const [trending, setTrending] = useState('all');
 const [search, setSearch] = useState('');
+const [error, setError] = useState('');
 const [data, setData] = useState([]);
 
 async function getTrending() {
@@ -23,8 +24,24 @@ async function getTrending() {
 
   const response = await api.get(`trending/${trending}/day?${key}&language=pt-BR`,config)
 
-  setData(response.data.results)
+  
 
+  setData(highScore(response.data.results))
+  
+}
+
+function highScore(array){
+  array.sort((a,b)=>{
+    if (a.vote_average > b.vote_average) {
+      return -1;
+    }
+    if (a.vote_average < b.vote_average) {
+      return 1;
+    }
+    return 0;
+  })
+
+  return array
 }
 
 async function getMovie() {
@@ -36,10 +53,15 @@ async function getMovie() {
       'Authorization': 'Bearer ' + token
     }
   }
+  try{
+    const response = await api.get(`search/movie?${key}&query=${search}&language=pt-BR`,config)
 
-  const response = await api.get(`search/movie?${key}&query=${search}&language=pt-BR`,config)
-
-  setData(response.data.results)
+    setData(highScore(response.data.results))
+    setError(null)
+  }catch(e) {
+    setError('Filme nao encontrado')
+  }
+  
 }
 
   useEffect(()=>{
@@ -53,7 +75,9 @@ async function getMovie() {
   }
 
   function handleChangeTranding (e) {
+    setError(null)
     setTrending(e.target.value)
+
   }
 
   function handleChangeSearch(e) {
@@ -80,7 +104,15 @@ async function getMovie() {
         <button type="submit">clique</button>
       </Form>
       <Repositories>
-        {data.length === 0 ? <span>Escolha um trending</span> : data.map(item => (
+        {data.length === 0 ? <span>Filme nao encontrado</span>
+        
+        : 
+        
+        !!error ?
+
+        <div>{error}</div> :
+
+        data.map(item => (
           
           <Link
           key={item.id}
@@ -95,7 +127,7 @@ async function getMovie() {
           </div>
           <div>
             <strong>{item.title}</strong>
-            <p>{item.release_date}</p>
+            <p>{!!item.release_date ? new Date(item.release_date).toLocaleDateString('pt-br') : 'data indisponivel'}</p>
             <p>{item.vote_average}</p>
 
           </div>
