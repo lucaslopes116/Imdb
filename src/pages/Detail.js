@@ -11,6 +11,7 @@ function Detail() {
   async function getDetail() {
     const key = process.env.REACT_APP_KEY
     const token = process.env.REACT_APP_TOKEN
+ 
 
     let config = {
       headers: {
@@ -19,8 +20,6 @@ function Detail() {
     }
     const response = await api.get(`movie/${id}?${key}&language=pt-BR`,config)
     
-    console.log(key) 
-    console.log(id)
     console.log(response)
   }
 

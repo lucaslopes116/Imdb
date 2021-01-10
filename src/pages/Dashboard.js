@@ -129,7 +129,7 @@ async function getMovie() {
           
           <Link
           key={item.id}
-          to={`/details${item.id}`}
+          to={`/detail${item.id}`}
           className={`${item.vote_average >= 6 ? 'highScore' : 'lowScore'}`}
 
         >
