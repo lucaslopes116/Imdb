@@ -1,9 +1,13 @@
 import React,{useState,useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import GradeIcon from '@material-ui/icons/Grade';
 import api from '../service/api'
 
-import { Repositories, Form } from '../styles/pages/dashboard'
+import Logo from '../assests/logo-roboto.png'
+
+import { ContainerCards, Form } from '../styles/pages/dashboard'
 
 
 function Dashboard() {
@@ -11,6 +15,8 @@ const [trending, setTrending] = useState('all');
 const [search, setSearch] = useState('');
 const [error, setError] = useState('');
 const [data, setData] = useState([]);
+let history = useHistory()
+
 
 async function getTrending() {
   const key = process.env.REACT_APP_KEY
@@ -66,6 +72,7 @@ async function getMovie() {
 
   useEffect(()=>{
     getTrending()
+    console.log(data)
   },[trending || search])
 
   async function handleSubmit(e) {
@@ -83,27 +90,33 @@ async function getMovie() {
   function handleChangeSearch(e) {
     setSearch(e.target.value)
   }
-  
+
 
   return (
     <>
       <Form onSubmit={handleSubmit}>
+          <div className='logo'>
+            <img src={Logo} alt="Filmotéca"/>
+          </div>
 
-        <select onChange={handleChangeTranding}>
-          <option value="all">Todos</option>
-          <option value="movie">Filmes</option>
-          <option value="tv">Séries</option>
-          <option value="person">Pessoas</option>
-        </select>
-
-        <label>
-          Procure um filme
-          <input type="text" value={search} onChange={handleChangeSearch} placeholder="Procure um filme"/>
-        </label>
-
-        <button type="submit">clique</button>
+          <div className='choiseTrending'>
+            <span>Escolha uma trending</span>
+            <select onChange={handleChangeTranding}>
+              <option value="all">Todos</option>
+              <option value="movie">Filmes</option>
+              <option value="tv">Séries</option>
+              <option value="person">Pessoas</option>
+            </select>
+          </div>
+          <div className="choiseMovie">
+            <label>
+              Procure um filme
+            </label> 
+              <input type="text" value={search} onChange={handleChangeSearch} placeholder="Pesquise..."/>
+          </div>
+       
       </Form>
-      <Repositories>
+      <ContainerCards>
         {data.length === 0 ? <span>Filme nao encontrado</span>
         
         : 
@@ -116,26 +129,45 @@ async function getMovie() {
           
           <Link
           key={item.id}
-          to="/#"
+          to={`/details${item.id}`}
+          className={`${item.vote_average >= 6 ? 'highScore' : 'lowScore'}`}
+
         >
           <div>
-
+          {!!item.poster_path ?
             <img
-              src={`http://image.tmdb.org/t/p/original${!!item.poster_path ? item.poster_path : item.profile_path}`}
-              alt={!!item.original_title ? item.original_title : item.name}
+              src={`http://image.tmdb.org/t/p/original${item.poster_path}`}
+              alt={item.original_title}
             />
+
+          : !!item.profile_path ?
+            <img
+              src={`http://image.tmdb.org/t/p/original${item.profile_path}`}
+              alt={item.name}
+            />
+
+            :
+            <img
+              src={'http://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'}
+              alt={'Sem imagem'}
+          />
+
+          }
           </div>
           <div>
-            <strong>{item.title}</strong>
-            <p>{!!item.release_date ? new Date(item.release_date).toLocaleDateString('pt-br') : 'data indisponivel'}</p>
-            <p>{item.vote_average}</p>
+            <strong>{!!item.title ? item.title : item.name}</strong>
+            <p className="release-date">{!!item.release_date ? new Date(item.release_date).toLocaleDateString('pt-br') : 'data indisponivel'}</p>
+            <div className={`${trending === 'person' ? 'popularity' : 'score'}-iconsScore`}>
+              {!!item.vote_average ? <GradeIcon/> : <FavoriteIcon/> }
+              <p>{!!item.vote_average ? item.vote_average : item.popularity} </p>
+            </div>
 
           </div>
 
         </Link>
         ))}
 
-      </Repositories>
+      </ContainerCards>
     </>
   );
 }
