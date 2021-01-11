@@ -79,7 +79,7 @@ function Detail() {
           <div className='detail-data'>
             <span className='detail-title'>{media.name || media.title}</span>
             <span className='detail-date'>{media.birthday || media.first_air_date || media.release_date}</span>
-            <span className='detail-overview'>{media.overview || media.biography}</span>
+            <span className='detail-overview'>{media.overview || media.biography || 'Api nao disponibiliza esse informacao'}</span>
           </div>
         </>
         ))}

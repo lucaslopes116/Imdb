@@ -132,7 +132,8 @@ function Dashboard() {
           <Link
           key={item.id}
           to={`/detail${item.id}&${item.media_type}`}
-          className={`${item.vote_average >= 6 ? 'highScore' : 'lowScore'}`}
+          onClick={()=>console.log(item)}
+          className={`${item.media_type === 'movie' ? item.vote_average >= 6 ? 'highScore' : 'lowScore' : ''}`}
           
           >
           <div>

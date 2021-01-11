@@ -49,7 +49,7 @@ export const ContainerCards = styled.div`
 
     img {
       width: 200px;
-      height: 200px;
+      height: 250px;
       
     }
 
@@ -63,8 +63,9 @@ export const ContainerCards = styled.div`
       justify-content: space-around;
 
       strong {
-        font-size: 20px;
+        font-size: 18px;
         color: #3d3d4d;
+        padding: 0 10px;
       }
 
       p {
@@ -73,9 +74,11 @@ export const ContainerCards = styled.div`
         margin-top: 4px;
       }
 
-      .release-date{
-        margin-top: 20px;
+      .release_date {
+        font-size: 18px;
+
       }
+
 
     .popularity-iconsScore svg {
       margin: 0;

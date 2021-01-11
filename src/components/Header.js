@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Logo from '../assests/logo-roboto.png'
@@ -8,11 +9,11 @@ import { Header } from '../styles/components/header'
 
 
 function HeaderContainer({ children, detail=false, goBack }){
-
+  const history = useHistory()
   return(
     <>
       <Header>
-        <div className='logo'>
+        <div className='logo' onClick={()=>{history.push('/')}}>
           <img src={Logo} alt="Filmotéca"/>
         </div>
         {children}

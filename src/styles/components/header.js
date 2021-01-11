@@ -20,12 +20,14 @@ export const Header = styled.header`
 
   
 
-  .logo{
+  .logo {
       @media (max-width: 600px){
       margin-bottom: 20px;
       }
 
       width: 200px;
+
+      cursor: pointer;
   }
 
   .choiseMovie, .choiseTrending {
@@ -64,6 +66,7 @@ export const Header = styled.header`
     width: 100%;
     height: 30px;
     padding: 0 77px;
+    cursor: pointer;
 
     background: url({ArrowDropDownIcon}) no-repeat #eeeeee;
     background-position: 218px center;
