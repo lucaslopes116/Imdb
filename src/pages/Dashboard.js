@@ -1,24 +1,28 @@
 import React,{useState,useEffect} from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import GradeIcon from '@material-ui/icons/Grade';
 import api from '../service/api'
 
-import Logo from '../assests/logo-roboto.png'
+import Footer from '../components/Footer'
+import Header from '../components/Header'
 
-import { ContainerCards, Form } from '../styles/pages/dashboard'
+import { ContainerCards } from '../styles/pages/dashboard'
+
+import Spinner from 'react-spinner-material'
+import Message from '../components/Message'
+
 
 
 function Dashboard() {
-const [trending, setTrending] = useState('all');
-const [search, setSearch] = useState('');
-const [error, setError] = useState('');
-const [data, setData] = useState([]);
-let history = useHistory()
+  const [trending, setTrending] = useState('all')
+  const [search, setSearch] = useState('')
+  const [error, setError] = useState('')
+  const [data, setData] = useState([]);
 
 
-async function getTrending() {
+  async function getTrending() {
   const key = process.env.REACT_APP_KEY
   const token = process.env.REACT_APP_TOKEN
 
@@ -30,13 +34,13 @@ async function getTrending() {
 
   const response = await api.get(`trending/${trending}/day?${key}&language=pt-BR`,config)
 
-  
+
 
   setData(highScore(response.data.results))
-  
-}
 
-function highScore(array){
+  }
+
+  function highScore(array){
   array.sort((a,b)=>{
     if (a.vote_average > b.vote_average) {
       return -1;
@@ -48,34 +52,38 @@ function highScore(array){
   })
 
   return array
-}
+  }
 
-async function getMovie() {
-  const key = process.env.REACT_APP_KEY
-  const token = process.env.REACT_APP_TOKEN
+  async function getMovie() {
+    const key = process.env.REACT_APP_KEY
+    const token = process.env.REACT_APP_TOKEN
 
-  let config = {
-    headers: {
-      'Authorization': 'Bearer ' + token
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
     }
-  }
-  try{
-    const response = await api.get(`search/movie?${key}&query=${search}&language=pt-BR`,config)
+    try{
+      const response = await api.get(`search/movie?${key}&query=${search}&language=pt-BR`,config)
 
-    setData(highScore(response.data.results))
-    setError(null)
-  }catch(e) {
-    setError('Filme nao encontrado')
+      if(response.data.results.length === 0) {
+        setError('Nenhum filme foi encontrado')
+        return
+      }
+
+      setData(highScore(response.data.results))
+      setError(null)
+    }catch(e) {
+      setError('Precisa preencher o campo de busca')
+    }
+
   }
-  
-}
 
   useEffect(()=>{
     getTrending()
-    console.log(data)
-  },[trending || search])
+  },[trending])
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault()
     getMovie()
     setSearch('')
@@ -94,58 +102,50 @@ async function getMovie() {
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
-          <div className='logo'>
-            <img src={Logo} alt="Filmotéca"/>
-          </div>
-
-          <div className='choiseTrending'>
-            <span>Escolha uma trending</span>
-            <select onChange={handleChangeTranding}>
-              <option value="all">Todos</option>
-              <option value="movie">Filmes</option>
-              <option value="tv">Séries</option>
-              <option value="person">Pessoas</option>
-            </select>
-          </div>
+      <Header>
+        <div className='choiseTrending'>
+          <select onChange={handleChangeTranding}>
+            <option value="" disabled selected>Trending</option>
+            <option value="all">Todos</option>
+            <option value="movie">Filmes</option>
+            <option value="tv">Séries</option>
+            <option value="person">Pessoas</option>
+          </select>
+        </div>
+        <form onSubmit={handleSubmit}>
           <div className="choiseMovie">
-            <label>
-              Procure um filme
-            </label> 
-              <input type="text" value={search} onChange={handleChangeSearch} placeholder="Pesquise..."/>
+              <input className="choiseMovie" type="text" value={search} onChange={handleChangeSearch} placeholder="Pesquise..."/>
           </div>
-       
-      </Form>
+      </form>
+     </Header>
       <ContainerCards>
-        {data.length === 0 ? <span>Filme nao encontrado</span>
+        {!data ? <Spinner color="white" visible={true} />
         
         : 
         
         !!error ?
 
-        <div>{error}</div> :
+        <Message error={error}/> :
 
-        data.map(item => (
+        data.length !== 0 ? data.map(item => (
           
           <Link
           key={item.id}
-          to={`/detail${item.id}`}
+          to={`/detail${item.id}&${item.media_type}`}
           className={`${item.vote_average >= 6 ? 'highScore' : 'lowScore'}`}
-
-        >
+          
+          >
           <div>
           {!!item.poster_path ?
             <img
-              src={`http://image.tmdb.org/t/p/original${item.poster_path}`}
-              alt={item.original_title}
+            src={`http://image.tmdb.org/t/p/original${item.poster_path}`}
+            alt={item.original_title}
             />
-
-          : !!item.profile_path ?
+            : !!item.profile_path ?
             <img
               src={`http://image.tmdb.org/t/p/original${item.profile_path}`}
               alt={item.name}
-            />
-
+              />
             :
             <img
               src={'http://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'}
@@ -154,6 +154,7 @@ async function getMovie() {
 
           }
           </div>
+
           <div>
             <strong>{!!item.title ? item.title : item.name}</strong>
             <p className="release-date">{!!item.release_date ? new Date(item.release_date).toLocaleDateString('pt-br') : 'data indisponivel'}</p>
@@ -161,13 +162,13 @@ async function getMovie() {
               {!!item.vote_average ? <GradeIcon/> : <FavoriteIcon/> }
               <p>{!!item.vote_average ? item.vote_average : item.popularity} </p>
             </div>
-
           </div>
-
         </Link>
-        ))}
-
+        ))
+      : 
+       <Message error={error}/>}
       </ContainerCards>
+      <Footer/>
     </>
   );
 }

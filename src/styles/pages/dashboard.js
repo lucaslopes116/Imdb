@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
-
 export const ContainerCards = styled.div`
   @media (max-width: 600px){
     margin-top: 150px;
+  }
+
+  .error {
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
   }
   
   margin-top: 80px;
@@ -102,96 +107,4 @@ export const ContainerCards = styled.div`
       color: #cbcbd6;
     }
   }
-`;
-
-export const Form = styled.form`
-
-  @media (max-width: 600px){
-    display: flex;
-    flex-direction: column;
-  }
-
-
-  width: 100%;
-  height: 50px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  color: white;
-
-  .logo{
-      @media (max-width: 600px){
-      margin-bottom: 20px;
-      }
-  }
-
-  .choiseMovie, .choiseTrending {
-      @media (max-width: 600px){
-      margin-bottom: 20px;
-    }
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .choiseMovie label{
-    font-weight: bold;
-    margin-right: 10px;
-  }
-
-  .choiseMovie{
-    input[type=text] {
-    width: 150px;
-    height: 30px;
-    padding: 10px 10px;
-    box-sizing: border-box;  
-    -webkit-transition: width 0.5s ease-in-out;
-    transition: width 0.5s ease-in-out;
-  }
-
-    input[type=text]:focus {
-      width: 80%;
-    }
-
-  }
-
-  .choiseTrending span {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-
-  .choiseTrending select {
-    width: 100px;
-    height: 30px;
-  }
-
-  .choiseTrending select option {
-    width: 100px;
-  }
-
-  .choiseTrending{
-    
-
-    display: flex;
-  }
-
-  
-
-  img {
-    width: 200px;
-    height: 52px;
-    border-radius: 10px;
-  }
-
-  
-`;
-
-export const Error = styled.span`
-  display: block;
-  color: #c53030;
-  margin-top: 8px;
 `;

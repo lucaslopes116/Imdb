@@ -10,7 +10,7 @@ function Routes() {
     <Switch>
       <Route component={Dashboard} path="/" exact />
       <Route component={Dashboard} path="/dashboard" />
-      <Route component={Detail} path="/detail:id" />
+      <Route component={Detail} path="/detail:params+" />
     </Switch>
 
   );
