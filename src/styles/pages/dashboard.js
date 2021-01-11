@@ -20,11 +20,13 @@ export const ContainerCards = styled.div`
 
 
   .highScore {
-    border:  1px solid #04d361;
+    box-shadow: inset 0 0 1em gold;
+    
   }
 
   .lowScore {
-    border: 1px solid #c53030;
+    box-shadow: inset 0 0 1em #c53030;
+
   }
   
 
@@ -34,10 +36,15 @@ export const ContainerCards = styled.div`
     height: 350px;
     text-decoration: none;
 
+
     display: flex;
     align-items: center;
     flex-direction: column;
     transition: transform 0.2s;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 
     margin: 0px 20px 20px 0;
 
@@ -50,6 +57,8 @@ export const ContainerCards = styled.div`
     img {
       width: 200px;
       height: 250px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
       
     }
 
@@ -63,30 +72,35 @@ export const ContainerCards = styled.div`
       justify-content: space-around;
 
       strong {
-        font-size: 18px;
+        font-size: 16px;
         color: #3d3d4d;
-        padding: 0 10px;
+        padding: 5px 5px 0 5px;
+        word-break: break-all;
       }
 
       p {
-        font-size: 18px;
+        margin-top: 5px;
+        font-size: 16px;
         color: #4242b3;
-        margin-top: 4px;
+        word-break: break-all;
       }
 
       .release_date {
         font-size: 18px;
-
       }
 
 
     .popularity-iconsScore svg {
-      margin: 0;
-        
+      margin: 0; 
     }
 
     .score-iconsScore svg {
       margin: 0;
+
+    }
+
+    .score-iconsScore  {
+      padding-bottom: 5px 0;
 
     }
 
