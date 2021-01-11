@@ -58,9 +58,11 @@ export const ContainerDetails = styled.div`
 
   .detail-title {
     font-size: 22px;
+    margin-bottom: 20px;
   }
 
   .detail-date {
+    margin-bottom: 20px;
     
   }
 

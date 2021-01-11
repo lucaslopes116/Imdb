@@ -8,6 +8,9 @@ import Message from '../components/Message'
 
 import { ContainerDetails } from '../styles/pages/detail'
 
+import formatDate from '../utils/formatDate'
+
+
 
 function Detail() {
   const [mediaDetail, setMediaDetail] = useState([])
@@ -58,6 +61,7 @@ function Detail() {
         <>
           {!!media.poster_path ?
             <img
+              key={media.id}
               src={`http://image.tmdb.org/t/p/original${media.poster_path}`}
               alt={media.original_title}
             />
@@ -78,7 +82,7 @@ function Detail() {
 
           <div className='detail-data'>
             <span className='detail-title'>{media.name || media.title}</span>
-            <span className='detail-date'>{media.birthday || media.first_air_date || media.release_date}</span>
+            <span className='detail-date'>{formatDate(media.birthday || media.first_air_date || media.release_date)}</span>
             <span className='detail-overview'>{media.overview || media.biography || 'Api nao disponibiliza esse informacao'}</span>
           </div>
         </>

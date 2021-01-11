@@ -13,6 +13,8 @@ import { ContainerCards } from '../styles/pages/dashboard'
 import Spinner from 'react-spinner-material'
 import Message from '../components/Message'
 
+import formatDate from '../utils/formatDate'
+
 
 
 function Dashboard() {
@@ -158,7 +160,9 @@ function Dashboard() {
 
           <div>
             <strong>{!!item.title ? item.title : item.name}</strong>
-            <p className="release-date">{!!item.release_date ? new Date(item.release_date).toLocaleDateString('pt-br') : 'data indisponivel'}</p>
+            {item.media_type !== 'person' &&
+             <p className="release-date">{!!item.release_date ? formatDate(item.release_date) :
+             !!item.first_air_date ? formatDate(item.first_air_date) : 'data não indisponivel'}</p>}
             <div className={`${trending === 'person' ? 'popularity' : 'score'}-iconsScore`}>
               {!!item.vote_average ? <GradeIcon/> : <FavoriteIcon/> }
               <p>{!!item.vote_average ? item.vote_average : item.popularity} </p>
