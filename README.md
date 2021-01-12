@@ -1,20 +1,17 @@
-# Getting Started with Create React App
+# FILMOTÉCA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto de SPA que realiza umas chamadas para uma api do https://www.themoviedb.org/, podendo consultar filmes, séries e atores.
 
 ## Available Scripts
 
-In the project directory, you can run:
+Para rodar o projeto, no seu diretório rode o comando:
 
 ### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Executa o aplicativo no modo de desenvolvimento.
+Abrindo [http://localhost:3000](http://localhost:3000) para visualizá-lo no navegador.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Inicia o executor de teste no modo de observação interativo.
+
