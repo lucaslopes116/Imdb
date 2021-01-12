@@ -6,7 +6,11 @@ Projeto de SPA que realiza umas chamadas para uma api do https://www.themoviedb.
 
 Para rodar o projeto, no seu diretório rode o comando:
 
-### `yarn start`
+### `yarn` ou ### `npm install`
+
+Após a instalação das dependências rode o comando:
+
+### `yarn start` ou ### `npm start
 
 Executa o aplicativo no modo de desenvolvimento.
 Abrindo [http://localhost:3000](http://localhost:3000) para visualizá-lo no navegador.
