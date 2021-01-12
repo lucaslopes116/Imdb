@@ -60,26 +60,38 @@ function Detail() {
         {!!mediaDetail && mediaDetail.length !== 0 && mediaDetail.map(media => (
         <>
           {!!media.poster_path ?
-            <img
-              key={media.id}
-              src={`http://image.tmdb.org/t/p/original${media.poster_path}`}
-              alt={media.original_title}
-            />
+            <div
+            key={media.id}
+            className='detail-photo'
+            >
+              <img
+                
+                src={`http://image.tmdb.org/t/p/original${media.poster_path}`}
+                alt={media.original_title}
+              />
+            </div>
 
-          : !!media.profile_path ?
-            <img
-              src={`http://image.tmdb.org/t/p/original${media.profile_path}`}
-              alt={media.name}
-            />
-
-            :
-            <img
-              src={'http://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'}
-              alt={'Sem imagem'}
-          />
-
-          }
-
+            : !!media.profile_path ?
+            <div
+            key={media.id}
+            className='detail-photo'
+            >
+              <img
+                src={`http://image.tmdb.org/t/p/original${media.profile_path}`}
+                alt={media.name}
+              />
+            </div>
+              :
+              <div
+            key={media.id}
+            className='detail-photo'
+            >
+                <img
+                  src={'http://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'}
+                  alt={'Sem imagem'}
+                  />
+              </div>
+            }
           <div className='detail-data'>
             <span className='detail-title'>{media.name || media.title}</span>
             <span className='detail-date'>{formatDate(media.birthday || media.first_air_date || media.release_date)}</span>

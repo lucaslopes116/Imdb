@@ -106,8 +106,8 @@ function Dashboard() {
     <>
       <Header>
         <div className='choiseTrending'>
-          <select onChange={handleChangeTranding}>
-            <option value="" disabled selected>Trending</option>
+          <select defaultValue={'default'} onChange={handleChangeTranding}>
+            <option value="default" disabled>Trending</option>
             <option value="all">Todos</option>
             <option value="movie">Filmes</option>
             <option value="tv">Séries</option>
@@ -134,7 +134,6 @@ function Dashboard() {
           <Link
           key={item.id}
           to={`/detail${item.id}&${item.media_type}`}
-          onClick={()=>console.log(item)}
           className={`${item.media_type === 'movie' ? item.vote_average >= 6 ? 'highScore' : 'lowScore' : ''}`}
           
           >

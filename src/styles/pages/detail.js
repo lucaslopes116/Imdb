@@ -36,6 +36,15 @@ export const ContainerDetails = styled.div`
   @media (max-width: 600px){
     display: flex;
     flex-direction: column;
+
+    .detail-data{
+      color: white;
+      width: 100%;
+    }
+
+    .detail-photo{
+      margin-bottom: 50px;
+    }
   }
 
   margin-top: 50px;
@@ -48,8 +57,6 @@ export const ContainerDetails = styled.div`
   .detail-data {
     padding: 0 20px;
     width: 100%;
-    height: 300px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,7 +70,6 @@ export const ContainerDetails = styled.div`
 
   .detail-date {
     margin-bottom: 20px;
-    
   }
 
   img {
