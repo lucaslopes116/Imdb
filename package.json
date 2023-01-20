@@ -13,6 +13,7 @@
     "dotenv": "^8.2.0",
     "jest": "^26.6.3",
     "nock": "^13.0.5",
+    "opensubtitles-api": "^5.1.2",
     "polished": "^4.0.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -57,6 +58,9 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coverageReporters": ["json", "html"]
+    "coverageReporters": [
+      "json",
+      "html"
+    ]
   }
 }

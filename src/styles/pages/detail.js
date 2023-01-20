@@ -1,8 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const GoBackContainer = styled.div`
   width: 100px;
   height: 100px;
+
+  cursor: pointer;
 
   display: flex;
   justify-content: center;
@@ -33,16 +35,16 @@ export const GoBackContainer = styled.div`
 `;
 
 export const ContainerDetails = styled.div`
-  @media (max-width: 600px){
+  @media (max-width: 600px) {
     display: flex;
     flex-direction: column;
 
-    .detail-data{
+    .detail-data {
       color: white;
       width: 100%;
     }
 
-    .detail-photo{
+    .detail-photo {
       margin-bottom: 50px;
     }
   }
@@ -78,5 +80,4 @@ export const ContainerDetails = styled.div`
 
     border-radius: 20px;
   }
-  
 `;
